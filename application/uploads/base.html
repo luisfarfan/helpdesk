@@ -1,0 +1,169 @@
+{% load getWord from mantenimiento_utils %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>{% block title %}  {% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Ubuntu orange and unique font.">
+    <meta name="author" content="Thomas Park">
+
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <link href="{{ STATIC_URL }}mobile/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ STATIC_URL }}mobile/bootstrap-responsive.min.css" rel="stylesheet">
+    <!--<link href="../css/font-awesome.min.css" rel="stylesheet">-->
+    <link href="{{ STATIC_URL }}mobile/bootswatch.css" rel="stylesheet">
+    {% block css %}{% endblock %}
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    {% comment %}
+    <script src="{{ STATIC_URL }}mobile/bootswatch.js"></script>
+    {% endcomment %}
+    {% block jsmain %}{% endblock %}
+
+   <script type="text/javascript">
+
+     var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-23019901-1']);
+      _gaq.push(['_setDomainName', "bootswatch.com"]);
+        _gaq.push(['_setAllowLinker', true]);
+      _gaq.push(['_trackPageview']);
+
+     (function() {
+       var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+       ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+       var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+     })();
+
+    </script>
+  </head>
+
+  <body class="preview" id="top" data-spy="scroll" data-target=".subnav" data-offset="80">
+  <!--  <script src="../js/bsa.js"></script> -->
+
+
+  <!-- Navbar
+    ================================================== -->
+ <div class="navbar navbar-fixed-top">
+   <div class="navbar-inner">
+     <div class="container">
+       <a class="btn btn-navbar anular" data-toggle="collapse" data-target="#main-menu" href="#">
+         <span class="icon-bar"></span>
+         <span class="icon-bar"></span>
+         <span class="icon-bar"></span>
+       </a>
+       <a class="brand" href="/">INEI</a>
+       <div class="nav-collapse collapse" id="main-menu">
+        <ul class="nav pull-right" id="main-menu-right">
+          <li><a rel="tooltip" href="/">Inicio<i class="icon-share-alt"></i></a></li>
+          <li><a rel="tooltip" href="/nosotros">Nosotros<i class="icon-share-alt"></i></a></li>
+          <li><a rel="tooltip" href="/contactenos">Contáctenos<i class="icon-share-alt"></i></a></li>
+        </ul>
+       </div>
+     </div>
+   </div>
+ </div>
+
+  <div class="container">
+
+    <header class="jumbotron subhead" id="overview">
+      <div class="row">
+        <div class="span4 logo">
+    	     <a href="/">
+              <img src="{{ STATIC_URL }}images/logo-inei.png" >
+            </a>
+        </div>
+        <div class="span2 menu" rel="{% url inei-module-indice-tematico-item 'economia' %}">
+          <div class="well" style="padding: 15px 22px 15px 22px;">
+            <a href="{% url inei-module-indice-tematico-item 'economia' %}" >
+    	     Indice Tématico</a>
+            <div style="clear:both"></div>
+          </div>
+        </div>
+        <div class="span2 menu" rel="{% url inei-module-boletines %}">
+          <div class="well" style="padding: 15px 22px 15px 22px;">
+    	     <a href="{% url inei-module-boletines %}" >
+           Boletines INEI</a>
+            <div style="clear:both"></div>
+          </div>
+        </div>
+        <div class="span2 menu" rel="{% url inei-module-notas-prensa %}">
+          <div class="well" style="padding: 15px 22px 15px 22px;">
+    	       <a href="{% url inei-module-notas-prensa %}" >
+              Notas de Prensa
+             </a>
+            <div style="clear:both"></div>
+          </div>
+        </div>
+        {% comment %}
+        <div class="span2 menu"  rel="c">
+          <div class="well" style="padding: 15px 20px 15px 20px;">
+    	     <a href="{% url peruencifras %}" >
+              Perú en cifras
+             </a>
+            <div style="clear:both"></div>
+          </div>
+        </div>
+        {% endcomment %}
+      </div>
+
+    </header>
+  {% block contenido %}{% endblock %}
+      <footer id="footer">
+        <div class="navbar navbar-bottom">
+           <div class="navbar-inner">
+             <div class="container">
+               <a class="btn btn-navbar anular" data-toggle="collapse" data-target="#bottom-footer" href="#footer">
+                 <span class="icon-bar"></span>
+                 <span class="icon-bar"></span>
+                 <span class="icon-bar"></span>
+               </a>
+               <a style="font-size:12px;margin-right:40px;" target="_blank" class="brand" href="https://m.facebook.com/pages/INSTITUTO-NACIONAL-DE-ESTAD%C3%8DSTICA-E-INFORM%C3%81TICA-SITIO-OFICIAL/130036523746567?ref=ts&fref=ts" >Facebook</a>
+               <a style="font-size:12px;margin-right:15px;" class="brand" href="https://mobile.twitter.com/INEI_oficial" target="_blank">Twitter</a>
+               <div class="nav-collapse collapse" id="bottom-footer">
+
+                <ul class="nav pull-right" id="bottom-menu-right">
+                  <li><a rel="tooltip" href="/">Inicio<i class="icon-share-alt"></i></a></li>
+                  <li><a rel="tooltip" href="/nosotros">Nosotros<i class="icon-share-alt"></i></a></li>
+                  <li><a rel="tooltip" href="/contactenos">Contáctenos<i class="icon-share-alt"></i></a></li>
+                  <!--<li><a rel="tooltip" target="_blank" href="#">Nosotros<i class="icon-share-alt"></i></a></li>
+                  <li><a rel="tooltip" target="_blank" href="#">Contáctenos<i class="icon-share-alt"></i></a></li>-->
+                </ul>
+               </div>
+             </div>
+           </div>
+         </div>
+        <div style="text-align: center;">
+          <p>Av. Gral. Garzón 654 - 658, Jesús María Lima-Perú</p>
+          <p>Teléfono: 652-0000 203-2640 - Fax: 431-1340</p>
+          <p>infoinei@inei.gob.pe</p>
+        </div>
+      </footer>
+    </div>
+    <script src="{{ STATIC_URL }}mobile/jquery.smooth-scroll.min.js"></script>
+    <script src="{{ STATIC_URL }}mobile/bootstrap.min.js"></script>
+    <script src="{{ STATIC_URL }}mobile/bootswatch.js"></script>
+    <script type="text/javascript">
+    $('.menu').click(function(){
+      document.location = $(this).attr('rel');
+    });
+
+
+    </script>
+    {% block js %}
+    {% endblock %}
+    <script type="text/javascript">
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-44851835-1', 'inei.gob.pe');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
+

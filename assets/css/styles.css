@@ -1,0 +1,7 @@
+.space_50{ height: 50px} .flright{ float: right} a.log_out{ font-weight: bold; text-decoration: underline; color: #ffffff}
+a.log_out:hover{ color: #ccc} .fleft{ float: left} .bannerinei{ background:url(../img/bannerinei.jpg); height: 180px; width: 1118px; margin: 0 auto}
+.tit_inci{ float: left; margin-top: 2px; margin-right: 5px; font-size: 18px} .titsub_inci{ margin-top: 6px; color: #555; font-size: 14px; float: left} .h3_tit_clasi{color: #787878; font-weight: bold}
+.divfoto{ float: left} .nofloatl{ float: none !important}
+.n_01{border-left: 1px solid #63badb; border-right: 1px solid #63badb;} .n_02{border-right: 1px solid #63badb;}
+li.active{ background-color: #367fa9} .link_ssi{ color: #fff}
+.noleftm{ margin-left: 0px !important}
