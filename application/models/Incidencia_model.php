@@ -10,6 +10,10 @@ class Incidencia_model extends CI_Model {
         return $this->db->get('categoria')->result_Array();
     }
 
+    function get_email_tecnico($id) {
+        return $this->db->get_where('usuario', array('idusuario' => $id))->result_Array();
+    }
+
     function get_usuarios() {
         return $this->db->get('usuario')->result_Array();
     }

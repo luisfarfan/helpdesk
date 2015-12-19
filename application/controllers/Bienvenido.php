@@ -79,7 +79,10 @@ class Bienvenido extends CI_Controller {
         $id_incidencia = $this->incidencia_model->nueva_incidencia($array_data);
         debug($id_incidencia);
         $incidencia_detalle = $this->incidencia_model->get_incidencias($id_incidencia);
-        sendmail_prueba($incidencia_detalle, 1);
+        $email_tecnico = $this->incidencia_model->get_email_tecnico($incidencia_detalle[0]['tecnico_idusuario']);
+//        debug(sendmail_tecnico($incidencia_detalle, 1, $email_tecnico[0]['email']));
+        phpmailer($incidencia_detalle, 1, $email_tecnico[0]['email']);
+
 
         //bitacora
         $array_bitacora['idvia'] = 1;
@@ -88,11 +91,12 @@ class Bienvenido extends CI_Controller {
         $array_bitacora['fecha_cambio_estado'] = date('Y-m-d h:i:s');
         $this->incidencia_model->insert_bitacora($array_bitacora);
         redirect('Bienvenido/incidencias');
-
-
-
 //        debug($incidencia_detalle);
 //        debug($disponibilidad);
+    }
+
+    function correo() {
+        phpmailer();
     }
 
 }

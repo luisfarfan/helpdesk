@@ -128,15 +128,55 @@ if (!function_exists('debug')) {
      * @param $data array de los datos de la persona que sera enviada.
      */
 
-    function sendmail($data = array()) {
+    function sendmail_tecnico($data, $tipo, $email) {
+        $id = $data[0]['idincidencia'];
+        $htmlheader = '<!DOCTYPE html>
+<html>
+    <head>
+        <title>Mensajes</title>
+    <table width="600" border="0" cellspacing="0" cellpadding="0" align="center" style="border:1px solid #e4e4e2"><tbody><tr><td valign="top">
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0" style="border-top:10px solid #0155b8"><tbody><tr>
+                                <td height="30" colspan="3" style="border-collapse:collapse;margin:0;padding:0;line-height:1px;font-size:1px">&nbsp;</td>
+                            </tr>
+                            <tr><td width="20" style="border-collapse:collapse;margin:0;padding:0;line-height:1px;font-size:1px">&nbsp;</td>
+                                <td valign="top" align="right"><div><img src="https://upload.wikimedia.org/wikipedia/en/f/f4/INEI_logo.png" style="display:block" border="0" height="100" class="CToWUd"></div>
+                                </td>
+                                <td width="20" style="border-collapse:collapse;margin:0;padding:0;line-height:1px;font-size:1px">&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td height="30" colspan="3" style="border-collapse:collapse;margin:0;padding:0;line-height:1px;font-size:1px">&nbsp;</td>
+                            </tr>
+                        </tbody></table>
+
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0"><tbody><tr><td width="40" style="border-collapse:collapse;margin:0;padding:0;line-height:1px;font-size:1px">&nbsp;</td>
+                                <td valign="top" style="font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:32px;color:#333e48"><div><span style="color:#0155b8"><span style="font-size:31.8181819915772px">Sistema de Servicios Informáticos</span></span>
+                        </tbody></table>
+
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0"><tbody><tr>
+                                <td height="20" colspan="3" style="border-collapse:collapse;margin:0;padding:0;line-height:1px;font-size:1px">&nbsp;</td>
+                            </tr>
+                            <tr><td width="40" style="border-collapse:collapse;margin:0;padding:0;line-height:1px;font-size:1px">&nbsp;</td>
+                                <td valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="0" style="font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#333e48"><tbody><tr><td style="padding:10px" valign="top" style="font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:20px;color:#333e48"><div><p>Gracias por enviar su solicitud:</p>';
+
+        $footer = ' </tbody></table></div></td></tr></tbody></table></html>';
+
+        $tecnico = '<span style="color:#455560"><span style="font-size:18px"><b>DETALLES DE LA INCIDENCIA</b></span>
+                                                            <p><b>Numero Ticket:</b>' . $data[0]['idincidencia'] . '</p>
+                                                            <p><b>Usuario:</b>' . $data[0]['nombre_completo_usuario'] . '</p>
+                                                            <p><b>Fech de Creación:</b> ' . $data[0]['fecha_inicio'] . '</p>
+                                                            <p><b>Titulo:</b>' . $data[0]['categoria_nombre'] . '</p>
+                                                            <span style="color:#455560"><span style="font-size:18px"><b>DESCRIPCION DE LA INCIDENCIA</b></span>
+                                                                <p>' . $data[0]['descripcion_incidencia'] . '</p>
+                                                                        <span style="color:#455560"><span style="font-size:18px"><b>TECNICO ASIGNADO</b></span>
+                                                                            <p>' . $data[0]['nombre_completo_tecnico'] . '</p>';
 
         $CI = &get_instance();
         $CI->load->library('email');
         $CI->email->from('soporte@inei.gob.pe', 'Administrador Helpdesk');
-        $CI->email->to($data['email']);
-        $CI->email->subject('USUARIO Y CONTRASEÑA PARA SISTEMA SERVICIOS OTIN');
-        $CI->email->message('Estimado: ' . $data['nombre_completo'] . ' Se adjunta su usuario y contraseña \n '
-                . 'Usuario:' . $data['username'] . ' CONTRASEÑA: ' . $data['clave']);
+        $CI->email->to($email);
+
+        $CI->email->subject('INCIDENCIA REGISTRADA TECNICO N° ' . $id);
+        $CI->email->message($htmlheader . $tecnico . $footer);
         $CI->email->send();
 
         echo $CI->email->print_debugger();
@@ -197,6 +237,16 @@ if (!function_exists('debug')) {
         $reasignada = '<span style="color:#455560"><span style="font-size:18px"><b>SU INCIDENCIA A SIDO REASIGNADA A :</b></span>
                                                             <p><b>Reasignado a Tenico:</b>' . $data[0]['nombre_completo_tecnico'] . '</p>';
         $footer = ' </tbody></table></div></td></tr></tbody></table></html>';
+
+        $tecnico = '<span style="color:#455560"><span style="font-size:18px"><b>DETALLES DE LA INCIDENCIA</b></span>
+                                                            <p><b>Numero Ticket:</b>' . $data[0]['idincidencia'] . '</p>
+                                                            <p><b>Usuario:</b>' . $data[0]['nombre_completo_usuario'] . '</p>
+                                                            <p><b>Fech de Creación:</b> ' . $data[0]['fecha_inicio'] . '</p>
+                                                            <p><b>Titulo:</b>' . $data[0]['categoria_nombre'] . '</p>
+                                                            <span style="color:#455560"><span style="font-size:18px"><b>DESCRIPCION DE LA INCIDENCIA</b></span>
+                                                                <p>' . $data[0]['descripcion_incidencia'] . '</p>
+                                                                        <span style="color:#455560"><span style="font-size:18px"><b>TECNICO ASIGNADO</b></span>
+                                                                            <p>' . $data[0]['nombre_completo_tecnico'] . '</p>';
         $CI = &get_instance();
         $CI->load->library('email');
         $CI->email->from('soporte@inei.gob.pe', 'Administrador Helpdesk');
@@ -205,17 +255,137 @@ if (!function_exists('debug')) {
             $CI->email->subject('INCIDENCIA REASIGNADA N° ' . $data[0]['idincidencia']);
             $CI->email->message($htmlheader . $reasignada . $footer);
         } elseif ($tipo == 3) {
-
             $CI->email->subject('INCIDENCIA SOLUCIONADA N° ' . $data[0]['idincidencia']);
             $CI->email->message($htmlheader . $solucion . $footer);
         } else {
             $CI->email->subject('INCIDENCIA REGISTRADA N° ' . $data[0]['idincidencia']);
             $CI->email->message($htmlheader . $nuevo . $footer);
+//            debug(sendmail_tecnico($htmlheader, $tecnico, $footer, $data[0]['idincidencia'], $email_tecnico));
         }
 
         $CI->email->send();
 
         echo $CI->email->print_debugger();
+    }
+
+    function phpmailer($data, $tipo, $email_tecnico = false) {
+
+        $id = $data[0]['idincidencia'];
+        $url = "http://192.168.221.123/helpdesk/Encuesta/encuesta/$id";
+        $htmlheader = '<!DOCTYPE html>
+<html>
+    <head>
+        <title>Mensajes</title>
+    <table width="600" border="0" cellspacing="0" cellpadding="0" align="center" style="border:1px solid #e4e4e2"><tbody><tr><td valign="top">
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0" style="border-top:10px solid #0155b8"><tbody><tr>
+                                <td height="30" colspan="3" style="border-collapse:collapse;margin:0;padding:0;line-height:1px;font-size:1px">&nbsp;</td>
+                            </tr>
+                            <tr><td width="20" style="border-collapse:collapse;margin:0;padding:0;line-height:1px;font-size:1px">&nbsp;</td>
+                                <td valign="top" align="right"><div><img src="https://upload.wikimedia.org/wikipedia/en/f/f4/INEI_logo.png" style="display:block" border="0" height="100" class="CToWUd"></div>
+                                </td>
+                                <td width="20" style="border-collapse:collapse;margin:0;padding:0;line-height:1px;font-size:1px">&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td height="30" colspan="3" style="border-collapse:collapse;margin:0;padding:0;line-height:1px;font-size:1px">&nbsp;</td>
+                            </tr>
+                        </tbody></table>
+
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0"><tbody><tr><td width="40" style="border-collapse:collapse;margin:0;padding:0;line-height:1px;font-size:1px">&nbsp;</td>
+                                <td valign="top" style="font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:32px;color:#333e48"><div><span style="color:#0155b8"><span style="font-size:31.8181819915772px">Sistema de Servicios Informáticos</span></span>
+                        </tbody></table>
+
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0"><tbody><tr>
+                                <td height="20" colspan="3" style="border-collapse:collapse;margin:0;padding:0;line-height:1px;font-size:1px">&nbsp;</td>
+                            </tr>
+                            <tr><td width="40" style="border-collapse:collapse;margin:0;padding:0;line-height:1px;font-size:1px">&nbsp;</td>
+                                <td valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="0" style="font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#333e48"><tbody><tr><td style="padding:10px" valign="top" style="font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:20px;color:#333e48"><div><p>Gracias por enviar su solicitud:</p>';
+        $nuevo = '<span style="color:#455560"><span style="font-size:18px"><b>DETALLES DE LA INCIDENCIA</b></span>
+                                                            <p><b>Numero Ticket:</b>' . $data[0]['idincidencia'] . '</p>
+                                                            <p><b>Usuario:</b>' . $data[0]['nombre_completo_usuario'] . '</p>
+                                                            <p><b>Fech de Creación:</b> ' . $data[0]['fecha_inicio'] . '</p>
+                                                            <p><b>Titulo:</b>' . $data[0]['categoria_nombre'] . '</p>
+                                                            <span style="color:#455560"><span style="font-size:18px"><b>DESCRIPCION DE LA INCIDENCIA</b></span>
+                                                                <p>' . $data[0]['descripcion_incidencia'] . '</p>
+                                                                        <span style="color:#455560"><span style="font-size:18px"><b>TECNICO ASIGNADO</b></span>
+                                                                            <p>' . $data[0]['nombre_completo_tecnico'] . '</p>';
+
+        $solucion = '<a style="font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:32px;color:#333e48" href="' . $url . '"><span style="color:#455560"><span style="font-size:18px"><b>REALIZAR ENCUESTA DE SATISFACCION</b></span></a><br>
+            <span style="color:#455560"><span style="font-size:18px"><b>DETALLES DE LA INCIDENCIA</b></span>
+                                                            <p><b>Numero Ticket:</b>' . $data[0]['idincidencia'] . '</p>
+                                                            <p><b>Usuario:</b>' . $data[0]['nombre_completo_usuario'] . '</p>
+                                                            <p><b>Titulo:</b>' . $data[0]['categoria_nombre'] . '</p>
+                                                            <p><b>Solucion:</b>' . $data[0]['solucion'] . '</p>
+                                                            <p><b>Fecha de cierre:</b>' . $data[0]['fecha_cierre'] . '</p>
+                                                            <span style="color:#455560"><span style="font-size:18px"><b>DESCRIPCION DE LA INCIDENCIA</b></span>
+                                                                <p>' . $data[0]['descripcion_incidencia'] . '</p>
+                                                                        <span style="color:#455560"><span style="font-size:18px"><b>TECNICO ASIGNADO</b></span>
+                                                                            <p>' . $data[0]['nombre_completo_tecnico'] . '</p>';
+
+        $reasignada = '<span style="color:#455560"><span style="font-size:18px"><b>SU INCIDENCIA A SIDO REASIGNADA A :</b></span>
+                                                            <p><b>Reasignado a Tenico:</b>' . $data[0]['nombre_completo_tecnico'] . '</p>';
+        $footer = ' </tbody></table></div></td></tr></tbody></table></html>';
+
+        $tecnico = '<span style="color:#455560"><span style="font-size:18px"><b>DETALLES DE LA INCIDENCIA</b></span>
+                                                            <p><b>Numero Ticket:</b>' . $data[0]['idincidencia'] . '</p>
+                                                            <p><b>Usuario:</b>' . $data[0]['nombre_completo_usuario'] . '</p>
+                                                            <p><b>Fech de Creación:</b> ' . $data[0]['fecha_inicio'] . '</p>
+                                                            <p><b>Titulo:</b>' . $data[0]['categoria_nombre'] . '</p>
+                                                            <span style="color:#455560"><span style="font-size:18px"><b>DESCRIPCION DE LA INCIDENCIA</b></span>
+                                                                <p>' . $data[0]['descripcion_incidencia'] . '</p>
+                                                                        <span style="color:#455560"><span style="font-size:18px"><b>TECNICO ASIGNADO</b></span>
+                                                                            <p>' . $data[0]['nombre_completo_tecnico'] . '</p>';
+
+
+
+        require_once('PHPMailer/PHPMailerAutoload.php');
+
+        $correo = new PHPMailer();
+
+        $correo->IsSMTP();
+
+        $correo->SMTPAuth = false;
+
+        $correo->SMTPSecure = 'tls';
+
+        $correo->CharSet = "UTF-8";
+
+        $correo->Host = "192.168.200.24";
+
+        $correo->Port = 25;
+
+        $correo->Username = "soporte";
+
+        $correo->Password = "$3nj0rg3%";
+
+        $correo->SetFrom("soporte@inei.gob.pe", "OTIN TE ATIENDE");
+
+        $correo->AddReplyTo($email_tecnico, "INCIDENCIA ASIGNADA. $data[0]['idincidencia']");
+
+        $correo->AddAddress($data[0]['email'], $data[0]['nombre_completo_usuario']);
+
+
+        if ($tipo == 2) {
+
+            $email_tecnico ? $correo->AddAddress($email_tecnico, 'Tecnico') : '';
+            $correo->Subject = 'INCIDENCIA REASIGNADA N° ' . $data[0]['idincidencia'];
+            $correo->MsgHTML($htmlheader . $reasignada . $footer);
+        } elseif ($tipo == 3) {
+            $correo->Subject = 'INCIDENCIA SOLUCIONADA N° ' . $data[0]['idincidencia'];
+            $correo->MsgHTML($htmlheader . $solucion . $footer);
+        } else {
+            $email_tecnico ? $correo->AddAddress($email_tecnico, 'Tecnico') : '';
+            $correo->Subject = 'INCIDENCIA REGISTRADA N° ' . $data[0]['idincidencia'];
+            $correo->MsgHTML($htmlheader . $nuevo . $footer);
+//            debug(sendmail_tecnico($htmlheader, $tecnico, $footer, $data[0]['idincidencia'], $email_tecnico));
+        }
+
+//        $correo->AddAttachment("images/phpmailer.gif");
+
+        if (!$correo->Send()) {
+            echo "Hubo un error: " . $correo->ErrorInfo;
+        } else {
+            echo "Mensaje enviado con exito.";
+        }
     }
 
 }

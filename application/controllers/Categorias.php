@@ -12,10 +12,10 @@ class Categorias extends CI_Controller {
     function categorias() {
         $data['categoria'] = $this->categorias_model->get_cat();
         $data['usuarios'] = $this->tecnicos_model->get_tecs();
-        layout('administrator/categorias', $data);
+        layout('administrator/categorias', $data, array('categoria'));
     }
 
-    public function editartec() {
+    public function editar_categoria() {
         $id_tec = $_POST['idcategoria'];
         unset($_POST['idcategoria']);
         $this->categorias_model->editar_tec($id_tec, $_POST);
@@ -47,6 +47,19 @@ class Categorias extends CI_Controller {
         }
 
         layout('administrator/reporte_cate', $data, array('reporte_cate'));
+    }
+
+    public function insert_incidencia() {
+        $data = $_POST;
+        $data['estado'] = 1;
+        $this->categorias_model->insertar_categoria($data);
+        redirect('Categorias/categorias');
+    }
+
+    public function get_by_id($id) {
+        $data['tecnicos'] = $this->tecnicos_model->get_tecs();
+        $data['categoria'] = $this->categorias_model->get_cat($id);
+        $this->load->view('administrator/editar_categoria', $data);
     }
 
 }

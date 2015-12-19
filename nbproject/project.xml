@@ -5,10 +5,5 @@
         <data xmlns="http://www.netbeans.org/ns/php-project/1">
             <name>helpdesk</name>
         </data>
-        <spellchecker-wordlist xmlns="http://www.netbeans.org/ns/spellchecker-wordlist/1">
-            <word>Email</word>
-            <word>Reasignado</word>
-            <word>SSI</word>
-        </spellchecker-wordlist>
     </configuration>
 </project>

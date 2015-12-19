@@ -88,9 +88,10 @@ class Admin extends CI_Controller {
             }
 
             if ($email[0]['idestado_incidencia'] == '3') {
-                sendmail_prueba($email, 3);
+                phpmailer($email, 3);
             } elseif ($email[0]['idestado_incidencia'] == '2') {
-                sendmail_prueba($email, 2);
+                $email_tecnico = $this->incidencia_model->get_email_tecnico($email[0]['tecnico_idusuario']);
+                phpmailer($email, 2,$email_tecnico);
             }
         } else {
             if (isset($_FILES['userfile'])) {
@@ -105,7 +106,7 @@ class Admin extends CI_Controller {
             $array_bitacora['idestado_incidencia'] = $email[0]['idestado_incidencia'];
             $array_bitacora['fecha_cambio_estado'] = date('Y-m-d h:i:s');
             $bitacora = $this->incidencia_model->insert_bitacora($array_bitacora);
-            sendmail_prueba($email, 1);
+            phpmailer($email, 1);
         }
 //        debug($id_incidencia);
 //        debug($array_bitacora);
